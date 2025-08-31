@@ -36,6 +36,7 @@ const Upgrade = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("access_token"));
+  const [isPremium, setIsPremium] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ const Upgrade = () => {
         if (userData.email) {
           setFormData(prev => ({ ...prev, email: userData.email }));
         }
+        setIsPremium(userData.premium || false);
       }
     } catch (error) {
       console.error("Failed to fetch user profile:", error);
@@ -211,6 +213,7 @@ const Upgrade = () => {
     <div className="min-h-screen bg-background">
       <Navbar
         isLoggedIn={isLoggedIn}
+        isPremium={isPremium}
         onLoginClick={() => setIsLoginModalOpen(true)}
       />
 

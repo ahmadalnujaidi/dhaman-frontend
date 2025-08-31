@@ -8,6 +8,12 @@ import WarrantyCard from "@/components/WarrantyCard";
 import { ShieldCheck, Plus } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 const API_URL = import.meta.env.VITE_API_URL;
+
+interface User {
+  email: string;
+  premium?: boolean;
+}
+
 interface Warranty {
   id: number;
   item_name: string;
@@ -23,6 +29,7 @@ interface Warranty {
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAddWarrantyModalOpen, setIsAddWarrantyModalOpen] = useState(false);
   const [warranties, setWarranties] = useState<Warranty[]>([]);
@@ -34,9 +41,30 @@ const Index = () => {
     const token = localStorage.getItem("access_token");
     if (token) {
       setIsLoggedIn(true);
+      fetchUserProfile();
       fetchWarranties();
     }
   }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
+
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setIsPremium(userData.premium || false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user profile:", error);
+    }
+  };
 
   const fetchWarranties = async () => {
     setIsLoadingWarranties(true);
@@ -67,12 +95,14 @@ const Index = () => {
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
+    fetchUserProfile();
     fetchWarranties();
   };
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
     setIsLoggedIn(false);
+    setIsPremium(false);
     setWarranties([]);
   };
 
@@ -84,6 +114,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar
         isLoggedIn={isLoggedIn}
+        isPremium={isPremium}
         onLoginClick={() => setIsLoginModalOpen(true)}
       />
 

@@ -6,10 +6,11 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 interface NavbarProps {
   isLoggedIn: boolean;
+  isPremium?: boolean;
   onLoginClick: () => void;
 }
 
-const Navbar = ({ isLoggedIn, onLoginClick }: NavbarProps) => {
+const Navbar = ({ isLoggedIn, isPremium = false, onLoginClick }: NavbarProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   return (
@@ -23,14 +24,16 @@ const Navbar = ({ isLoggedIn, onLoginClick }: NavbarProps) => {
         
         <div className="flex items-center gap-4 navbar-flex">
           <LanguageSwitcher />
-          <Button 
-            variant="outline" 
-            onClick={() => navigate('/upgrade')}
-            className="flex items-center gap-2"
-          >
-            <Crown className="h-4 w-4" />
-            {t('nav.upgrade')}
-          </Button>
+          {!isPremium && (
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/upgrade')}
+              className="flex items-center gap-2"
+            >
+              <Crown className="h-4 w-4" />
+              {t('nav.upgrade')}
+            </Button>
+          )}
           {!isLoggedIn && (
             <Button variant="primary" onClick={onLoginClick}>
               {t('nav.login')}

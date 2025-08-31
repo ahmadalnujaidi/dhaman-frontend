@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dhaman Warranty Management Design System */
+
+@layer base {
+  :root {
+    /* Professional Blue Theme for Warranty Management */
+    --background: 240 10% 98%;
+    --foreground: 222 15% 25%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 15% 25%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 15% 25%;
+
+    --primary: 212 95% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 212 100% 60%;
+
+    --secondary: 210 25% 94%;
+    --secondary-foreground: 222 15% 25%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 195 75% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 212 95% 45%;
+
+    --radius: 0.75rem;
+
+    /* Professional Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    
+    /* Professional Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 8px 25px -5px hsl(var(--primary) / 0.15);
+    --shadow-card: 0 4px 15px -3px hsl(var(--primary) / 0.08);
+    
+    /* Smooth Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  /* More selective RTL flex direction changes */
+  [dir="rtl"] .navbar-flex {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] .card-info-grid {
+    direction: rtl;
+  }
+
+  /* Keep main layout flex normal but handle content */
+  [dir="rtl"] .justify-between {
+    direction: rtl;
+  }
+
+  [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  [dir="rtl"] .gap-4 {
+    gap: 1rem;
+  }
+
+  [dir="rtl"] .gap-2 {
+    gap: 0.5rem;
+  }
+
+  /* Arabic font support */
+  [dir="rtl"] {
+    font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Better button alignment in RTL */
+  [dir="rtl"] .flex.items-center.gap-2 {
+    flex-direction: row-reverse;
+  }
+
+  /* Improved modal and dialog display */
+  [dir="rtl"] .dialog-content {
+    direction: rtl;
+  }
+
+  /* Fix for card headers in RTL */
+  [dir="rtl"] .card-header-flex {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] input,
+  [dir="rtl"] textarea,
+  [dir="rtl"] select {
+    text-align: right;
+  }
+
+  [dir="rtl"] input::placeholder,
+  [dir="rtl"] textarea::placeholder {
+    text-align: right;
+  }
+
+  /* Fix for dropdown alignment in RTL */
+  [dir="rtl"] [data-radix-popper-content-wrapper] {
+    direction: rtl;
+  }
+
+  /* Fix for modal and dialog alignment */
+  [dir="rtl"] [role="dialog"] {
+    direction: rtl;
+  }
+
+  /* Navigation and button alignment fixes */
+  [dir="rtl"] .container {
+    direction: rtl;
+  }
+
+  [dir="rtl"] .grid {
+    direction: rtl;
+  }
+
+  /* Icon spacing fixes for RTL */
+  [dir="rtl"] .lucide {
+    margin-left: 0.5rem;
+    margin-right: 0;
+  }
+
+  [dir="rtl"] button .lucide {
+    margin-left: 0.25rem;
+    margin-right: 0;
+  }
+
+  /* Ensure text inputs work properly in RTL */
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left;
+  }
+}
